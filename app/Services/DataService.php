@@ -48,6 +48,7 @@ class DataService implements DataServiceInterface
         return collect([
             'message' => 'Task finished',
             'elapsed' => $query['elapsed'],
+            'files' => 'public/' . $query['id'] . '.csv',
             'status' => Response::HTTP_OK,
         ]);
     }

@@ -4,7 +4,10 @@ namespace App\Jobs;
 
 use App\Models\Data;
 use App\Models\ExportQuery;
+use Box\Spout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -32,8 +35,8 @@ class ProcessQuery implements ShouldQueue
      * Execute the job.
      *
      * @return void
-     * @throws \Box\Spout\Common\Exception\IOException
-     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
+     * @throws IOException
+     * @throws WriterNotOpenedException|InvalidArgumentException
      */
     public function handle(): void
     {
