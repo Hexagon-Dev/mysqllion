@@ -1,5 +1,5 @@
 # Mysqllion
-It's a database to CSV converter that works in docker. It takes ~240 seconds to generate CSV from database with 1kk entries.
+It's a database to CSV converter that works in docker. It takes ~180 seconds to generate CSV from database with 1kk entries on Ryzen 5600X.
 ## Installation
 Be sure that you have Docker installed
 ```bash

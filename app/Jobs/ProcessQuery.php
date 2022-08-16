@@ -4,16 +4,14 @@ namespace App\Jobs;
 
 use App\Models\Data;
 use App\Models\ExportQuery;
-use Box\Spout\Common\Exception\InvalidArgumentException;
-use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
-use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
+use Throwable;
 
 class ProcessQuery implements ShouldQueue
 {
@@ -23,7 +21,7 @@ class ProcessQuery implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *c
+     *
      * @return void
      */
     public function __construct($id)
@@ -35,8 +33,7 @@ class ProcessQuery implements ShouldQueue
      * Execute the job.
      *
      * @return void
-     * @throws IOException
-     * @throws WriterNotOpenedException|InvalidArgumentException
+     * @throws Throwable
      */
     public function handle(): void
     {
@@ -50,8 +47,6 @@ class ProcessQuery implements ShouldQueue
         $query->update([
             'status' => ExportQuery::STATUS_PROCESSING,
         ]);
-
-        $size = Data::query()->count();
 
         $header = [
             'id',

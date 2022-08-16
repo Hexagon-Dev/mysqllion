@@ -53,7 +53,7 @@ class DataController extends Controller
     public function download(string $path)
     {
         $collection = $this->service->download($path);
-        if ($collection->get('status') === 404) {
+        if (is_a($collection, 'Collection') && $collection->get('status') === 404) {
             return response()->json(
                 ['error' => $collection->get('error')],
                 $collection->get('status'),

@@ -3,6 +3,7 @@
 namespace App\Contracts\Services;
 
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 interface DataServiceInterface
 {
@@ -19,7 +20,7 @@ interface DataServiceInterface
 
     /**
      * @param string $path
-     * @return Collection
+     * @return Collection|BinaryFileResponse
      */
-    public function download(string $path): Collection;
+    public function download(string $path);
 }

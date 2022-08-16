@@ -12,12 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DataService implements DataServiceInterface
 {
-    public int $entry = 0;
-    public string $filename;
-
     public function request(): Collection
     {
-        $export = ExportQuery::query()->create(['status' => ExportQuery::STATUS_WAITING, 'elapsed' => 0]);
+        /* @var ExportQuery $export */
+        $export = ExportQuery::create(['status' => ExportQuery::STATUS_WAITING, 'elapsed' => 0]);
 
         ProcessQuery::dispatchAfterResponse($export->id);
 
@@ -36,9 +34,9 @@ class DataService implements DataServiceInterface
             ]);
         }
 
-        $query = $query->toArray();
+        $data = $query->toArray();
 
-        if ($query['status'] !== ExportQuery::STATUS_DONE) {
+        if ($data['status'] !== ExportQuery::STATUS_DONE) {
             return collect([
                 'message' => 'Task is not done yet',
                 'status' => Response::HTTP_ACCEPTED,
@@ -47,8 +45,8 @@ class DataService implements DataServiceInterface
 
         return collect([
             'message' => 'Task finished',
-            'elapsed' => $query['elapsed'],
-            'files' => 'public/' . $query['id'] . '.csv',
+            'elapsed' => $data['elapsed'],
+            'files' => 'public/' . $data['id'] . '.csv',
             'status' => Response::HTTP_OK,
         ]);
     }
@@ -57,12 +55,12 @@ class DataService implements DataServiceInterface
      * @param string $path
      * @return Collection|BinaryFileResponse
      */
-    public function download(string $path): Collection
+    public function download(string $path)
     {
         if (!File::exists($path)) {
             return Collection::make([
                 'error' => 'file not found',
-                'status' => Response::HTTP_NOT_FOUND
+                'status' => Response::HTTP_NOT_FOUND,
             ]);
         }
 

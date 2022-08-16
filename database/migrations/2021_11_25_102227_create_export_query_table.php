@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Schema;
 class CreateExportQueryTable extends Migration
 {
     /**
-     * Run the migrations.
-     *
      * @return void
      */
     public function up()
@@ -22,8 +20,6 @@ class CreateExportQueryTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
-     *
      * @return void
      */
     public function down()

@@ -33,6 +33,5 @@ class DatabaseSeeder extends Seeder
             }
             DB::table('data')->insert($array);
         }
-        //Data::factory()->count(1000000)->create();
     }
 }
